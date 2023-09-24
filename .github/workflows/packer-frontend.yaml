@@ -14,8 +14,8 @@ env:
   WORKING_DIRECTORY: /src/packer/frontend
 
 jobs:
-  runs-on: ubuntu-latest
   build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
 
