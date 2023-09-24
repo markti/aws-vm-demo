@@ -5,13 +5,13 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-    - 'src/packer/frontend**'
+    - '/src/packer/frontend**'
     - '.github/workflows/**'
 
 env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
   PACKER_VERSION: '1.9.4'
-  WORKING_DIRECTORY: /src/packer/frontend
+  WORKING_DIRECTORY: ./src/packer/frontend
 
 jobs:
   build:
