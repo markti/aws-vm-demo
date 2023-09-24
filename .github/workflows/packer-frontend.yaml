@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+    paths:
+    - 'src/packer/frontend**'
+    - '.github/workflows/**'
+
+env:
+  DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
+  PACKER_VERSION: '1.9.4'
+  WORKING_DIRECTORY: /src/packer/frontend
+
+jobs:
+  build:
+    steps:
+    - uses: actions/checkout@v3
+
+    - id: setup
+      name: Setup `packer`
+      uses: hashicorp/setup-packer@main
+      with:
+        version: ${{ env.PACKER_VERSION }}
+
+    - id: build
+      name: Packer Build
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        packer init ./
+        packer build variables.pkrvars.hcl ./
