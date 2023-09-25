@@ -21,6 +21,18 @@ build {
     ]
   }
 
+  provisioner "file" {
+    source = "./files/myblazorapp.service"
+    destination = "/tmp/myblazorapp.service"
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/myblazorapp.service /etc/systemd/system/myblazorapp.service"
+    ]
+  }
+
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [

@@ -70,6 +70,11 @@ jobs:
       with:
         name: dotnet-deployment
 
+    - name: Check Files
+      run: |
+        pwd
+        ls
+
     - id: version
       name: Generate Version Number
       run: |
@@ -83,6 +88,12 @@ jobs:
         ipaddress=$(curl -s http://checkip.amazonaws.com)
         echo $ipaddress
         echo "ipaddress=$ipaddress" >> "$GITHUB_OUTPUT"
+
+    - name: Check Files
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        pwd
+        ls
 
     - id: setup
       name: Setup `packer`
