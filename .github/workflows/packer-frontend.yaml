@@ -12,11 +12,6 @@ env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
   PACKER_VERSION: '1.9.4' # The version of Packer to use
   WORKING_DIRECTORY: "./src/packer/frontend"
-  currentYear: $[format('{0:yyyy}', pipeline.startTime)]
-  currentMonth: $[format('{0:MM}', pipeline.startTime)]
-  versionPrefix: $(currentYear).$(currentMonth)
-  versionPatch: $[counter(format('{0:yyyyMM}', pipeline.startTime), 0)]
-  imageVersion: '$(versionPrefix).$(versionPatch)'
 
 jobs:
   build:
