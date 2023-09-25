@@ -1,0 +1,45 @@
+name: CD
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+    paths:
+    - '/src/terraform/**'
+    - '.github/workflows/**'
+
+env:
+  TERRAFORM_VERSION: '1.5.7'
+  FRONTEND_IMAGE: 'frontend-2023.09.30'
+  WORKING_DIRECTORY: "./src/terraform"
+
+jobs:
+
+  packer:
+    needs: [frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - id: setup
+      name: Setup `terraform`
+      uses: hashicorp/setup-terraform@main
+      with:
+        version: ${{ env.TERRAFORM_VERSION }}
+
+    - id: apply
+      name: Terraform Apply
+      env:
+        AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_frontend_image_name: ${{ env.FRONTEND_IMAGE }}
+        BACKEND_BUCKET_NAME: ${{ vars.BUCKET_NAME }}
+        BACKEND_REGION: ${{ vars.BUCKET_REGION }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        terraform init \
+          -backend-config="address=$BUCKET_NAME" \
+          -backend-config="region=$BUCKET_REGION" \
+          -backend-config="key=aws-vm-sample"
+
+        terraform apply -auto-approve
