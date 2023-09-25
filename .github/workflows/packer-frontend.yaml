@@ -61,6 +61,7 @@ jobs:
         path: ${{ env.DOTNET_WORKING_DIRECTORY }}/deployment.zip
 
   packer:
+    needs: [frontend-build]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
