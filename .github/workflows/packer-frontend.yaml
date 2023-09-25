@@ -49,4 +49,4 @@ jobs:
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         packer init ./
-        packer build -var-file=variables.pkrvars.hcl ./
+        packer build -var-file=default.pkrvars.hcl ./
