@@ -18,10 +18,6 @@ jobs:
 
   frontend-build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
     steps:
     - uses: actions/checkout@v3
 
