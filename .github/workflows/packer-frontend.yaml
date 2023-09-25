@@ -21,7 +21,9 @@ jobs:
     
     - id: version
       name: Generate Version Number
-      run: echo "::set-output name=version::$(date +'%Y.%m').${{ github.run_number }}"
+      run: |
+        echo "$(date +'%Y.%m').${{ github.run_number }}"
+        echo "ipaddress=$ipaddress" >> "$GITHUB_OUTPUT"
 
     - id: agent-ipaddress
       name: Check Path
