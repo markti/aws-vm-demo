@@ -11,7 +11,7 @@ on:
 env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
   PACKER_VERSION: '1.9.4' # The version of Packer to use
-  WORKING_DIRECTORY: ./src/packer/frontend
+  WORKING_DIRECTORY: "./src/packer/frontend"
 
 jobs:
   build:
@@ -24,6 +24,13 @@ jobs:
       uses: hashicorp/setup-packer@main
       with:
         version: ${{ env.PACKER_VERSION }}
+
+    - id: check
+      name: Check Path
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        pwd
+        ls -a
 
     - id: build
       name: Packer Build
