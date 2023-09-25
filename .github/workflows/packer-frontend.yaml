@@ -8,6 +8,13 @@ on:
     - '/src/packer/frontend**'
     - '.github/workflows/**'
 
+variables:
+  currentYear: $[format('{0:yyyy}', pipeline.startTime)]
+  currentMonth: $[format('{0:MM}', pipeline.startTime)]
+  versionPrefix: $(currentYear).$(currentMonth)
+  versionPatch: $[counter(format('{0:yyyyMM}', pipeline.startTime), 0)]
+  imageVersion: '$(versionPrefix).$(versionPatch)'
+
 env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
   PACKER_VERSION: '1.9.4' # The version of Packer to use
@@ -19,24 +26,26 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - id: agent-ipaddress
+      name: Check Path
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        ipaddress=$(curl -s http://checkip.amazonaws.com)
+        echo $ipaddress
+        echo "ipaddress=$ipaddress" >> "$GITHUB_OUTPUT"
+
     - id: setup
       name: Setup `packer`
       uses: hashicorp/setup-packer@main
       with:
         version: ${{ env.PACKER_VERSION }}
 
-    - id: check
-      name: Check Path
-      working-directory: ${{ env.WORKING_DIRECTORY }}
-      run: |
-        pwd
-        ls -a
-
     - id: build
       name: Packer Build
       env:
         AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        PKR_VAR_agent_ipaddress: ${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         packer init ./
