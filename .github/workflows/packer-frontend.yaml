@@ -75,11 +75,10 @@ jobs:
         pwd
         ls
 
-    - id: version
+    - id: image-version
       name: Generate Version Number
       run: |
-        image_version=$(date +'%Y.%m').${{ github.run_number }}
-        echo "image_version=$image_version" >> "$GITHUB_OUTPUT"
+        echo "version=$(date +'%Y.%m').${{ github.run_number }}" >> "$GITHUB_OUTPUT"
 
     - id: agent-ipaddress
       name: Check Path
@@ -110,7 +109,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        PKR_VAR_image_version: ${{ steps.version.outputs.image_version }}
+        PKR_VAR_image_version: ${{ steps.image-version.outputs.version }}
         PKR_VAR_agent_ipaddress: ${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
