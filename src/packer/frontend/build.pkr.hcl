@@ -1,9 +1,7 @@
 
 build {
   sources = [
-    "source.azure-arm.vm",
-    "source.amazon-ebs.vm",
-    "source.googlecompute.vm"
+    "source.amazon-ebs.vm"
   ]
 
   provisioner "shell" {
