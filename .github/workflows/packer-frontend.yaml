@@ -12,13 +12,65 @@ env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
   PACKER_VERSION: '1.9.4' # The version of Packer to use
   WORKING_DIRECTORY: "./src/packer/frontend"
+  DOTNET_WORKING_DIRECTORY: "./src/dotnet/frontend"
 
 jobs:
-  build:
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+      
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+
+    - name: Publish
+      run: |
+        dotnet publish **/GitHubCrawler.csproj -c Release -o ./publish
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+
+    - name: Generate the Deployment Package
+      run: |
+        zip -r ../deployment.zip ./
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/publish
+      
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+
+    - name: Upload Deployment Package
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-deployment
+        path: ${{ env.DOTNET_WORKING_DIRECTORY }}/deployment.zip
+
+  packer:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
+    - uses: actions/download-artifact@v3
+        with:
+          name: dotnet-deployment
+
     - id: version
       name: Generate Version Number
       run: |
