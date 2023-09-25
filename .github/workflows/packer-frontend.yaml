@@ -89,6 +89,10 @@ jobs:
         echo $ipaddress
         echo "ipaddress=$ipaddress" >> "$GITHUB_OUTPUT"
 
+    - name: Copy Deployment Package
+      run: |
+        cp ./deployment.zip ${{ env.WORKING_DIRECTORY }}/deployment.zip
+
     - name: Check Files
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
