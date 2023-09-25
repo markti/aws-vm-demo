@@ -40,6 +40,8 @@ jobs:
 
     - name: Publish
       run: |
+        pwd
+        ls
         dotnet publish **/FleetPortal.csproj -c Release -o ./publish
       working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
 
