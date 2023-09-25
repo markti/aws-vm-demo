@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    
+    - id: version
+      name: Generate Version Number
+      run: echo "::set-output name=version::$(date +'%Y.%m').${{ github.run_number }}"
 
     - id: agent-ipaddress
       name: Check Path
@@ -38,8 +42,9 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        PKR_VAR_image_version: ${{ steps.version.outputs.version }}
         PKR_VAR_agent_ipaddress: ${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         packer init ./
-        packer build -var-file=default.pkrvars.hcl ./
+        packer build -var-file=variables.pkrvars.hcl ./
