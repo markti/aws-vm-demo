@@ -5,6 +5,8 @@ terraform {
       version = "~> 5.17"
     }
   }
+  backend "s3" {
+  }
 }
 
 # Configure the AWS Provider
@@ -12,5 +14,3 @@ provider "aws" {
   region = var.primary_region
 }
 
-backend "s3" {
-}
