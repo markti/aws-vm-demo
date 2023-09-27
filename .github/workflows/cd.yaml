@@ -37,8 +37,8 @@ jobs:
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init \
-          -backend-config="bucket=$BUCKET_NAME" \
-          -backend-config="region=$BUCKET_REGION" \
+          -backend-config='bucket='$BUCKET_NAME \
+          -backend-config='region='$BUCKET_REGION \
           -backend-config="key=aws-vm-sample"
 
         terraform apply -auto-approve
