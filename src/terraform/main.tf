@@ -16,7 +16,7 @@ output "public_subnets" {
 
 resource "aws_subnet" "frontend" {
 
-  count = length(data.aws_availability_zones.available.names)
+  count = length(local.public_subnets)
 
   vpc_id            = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
