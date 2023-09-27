@@ -12,7 +12,7 @@ resource "aws_subnet" "frontend" {
 
   vpc_id            = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnets("10.0.0.0/16", 8, 8)[count.index]
+  cidr_block        = cidrsubnets("10.0.0.0/16", 8, 8, 8)[count.index]
 }
 
 data "aws_ami" "frontend" {
