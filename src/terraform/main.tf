@@ -19,7 +19,7 @@ resource "aws_subnet" "frontend" {
   count = length(data.aws_availability_zones.available.names)
 
   vpc_id            = aws_vpc.main.id
-  availability_zone = data.aws_availability_zones.available.names[count.index].id
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = local.public_subnets[count.index]
 }
 
