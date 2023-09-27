@@ -26,9 +26,8 @@ resource "aws_subnet" "frontend" {
 */
 
 data "aws_ami" "frontend" {
-  executable_users = ["self"]
-  most_recent      = true
-  owners           = ["self"]
+  most_recent = true
+  owners      = ["self"]
 
   filter {
     name   = "name"
