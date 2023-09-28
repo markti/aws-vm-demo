@@ -87,15 +87,10 @@ resource "aws_security_group_rule" "https" {
 }
 
 resource "aws_lb_target_group" "frontend_http" {
-  name                = "${var.application_name}-${var.environment_name}-frontend"
-  port                = 80
-  protocol            = "HTTP"
-  vpc_id              = aws_vpc.main.id
-  path                = "/health" # The path to the health check endpoint
-  interval            = 30        # Check the health every 30 seconds
-  timeout             = 5         # Allow up to 5 seconds for a response
-  healthy_threshold   = 2         # Require 2 consecutive successful checks
-  unhealthy_threshold = 2         # Mark unhealthy after 2 consecutive failures
+  name     = "${var.application_name}-${var.environment_name}-frontend"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
 }
 
 resource "aws_lb_listener" "frontend" {
