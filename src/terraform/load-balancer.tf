@@ -10,8 +10,8 @@ resource "aws_lb" "frontend" {
 
 locals {
   frontend_listeners = {
-    "HTTP"  = 80,
-    "HTTPS" = 443
+    "HTTP" = 80
+    #"HTTPS" = 443
   }
   frontend_attachments = [for k, v in local.frontend_listeners :
     [for i in aws_instance.frontend : {
