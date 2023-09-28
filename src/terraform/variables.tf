@@ -13,3 +13,6 @@ variable "frontend_image_name" {
 variable "frontend_instance_type" {
   type = string
 }
+variable "domain_name" {
+  type = string
+}

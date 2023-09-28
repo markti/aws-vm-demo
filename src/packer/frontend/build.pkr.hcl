@@ -10,15 +10,8 @@ build {
       "apt-get update -y",
       "apt-get clean", 
       "apt-get upgrade -y",
-      "apt-get install unzip -y"
-    ]
-  }
-
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0",
-      "export PATH=\"$PATH:$HOME/.dotnet\""
+      "apt-get install unzip -y", 
+      "apt-get install -y dotnet-sdk-6.0"
     ]
   }
 
