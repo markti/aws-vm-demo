@@ -10,7 +10,6 @@ on:
 
 env:
   TERRAFORM_VERSION: '1.5.7'
-  FRONTEND_IMAGE: 'frontend-2023.09.50'
   WORKING_DIRECTORY: "./src/terraform"
 
 jobs:
