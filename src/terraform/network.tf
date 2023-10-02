@@ -6,6 +6,15 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 }
 
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -26,4 +35,12 @@ resource "aws_subnet" "frontend" {
   vpc_id            = aws_vpc.main.id
   availability_zone = random_shuffle.az.result[count.index]
   cidr_block        = local.public_subnets[count.index]
+}
+
+
+resource "aws_route_table_association" "a" {
+
+  count          = length(local.public_subnets)
+  subnet_id      = aws_subnet.frontend[count.index].id
+  route_table_id = aws_route_table.main.id
 }
