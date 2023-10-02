@@ -32,6 +32,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         BACKEND_BUCKET_NAME: ${{ vars.BUCKET_NAME }}
         BACKEND_REGION: ${{ vars.BUCKET_REGION }}
+        TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init \

@@ -9,14 +9,9 @@ data "aws_ami" "frontend" {
   }
 }
 
-resource "tls_private_key" "frontend" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
 resource "aws_key_pair" "frontend" {
   key_name   = "frontend-key"
-  public_key = tls_private_key.frontend.public_key_openssh
+  public_key = var.ssh_public_key
 }
 
 

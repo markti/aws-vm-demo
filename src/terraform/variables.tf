@@ -16,3 +16,6 @@ variable "frontend_instance_type" {
 variable "domain_name" {
   type = string
 }
+variable "ssh_public_key" {
+  type = string
+}
