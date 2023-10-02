@@ -2,8 +2,8 @@ name: Frontend-Packer
 
 on:
   push:
-  pull_request:
-    branches: [ main ]
+    branches: 
+    - main
     paths:
     - '/src/packer/frontend**'
 
