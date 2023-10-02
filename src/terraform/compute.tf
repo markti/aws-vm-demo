@@ -8,7 +8,7 @@ data "aws_ami" "frontend" {
     values = [var.frontend_image_name]
   }
 }
-/*
+
 resource "aws_network_interface" "frontend" {
   count     = length(local.public_subnets)
   subnet_id = aws_subnet.frontend[count.index].id
@@ -26,4 +26,7 @@ resource "aws_instance" "frontend" {
   }
 
 }
-*/
+resource "aws_eip" "frontend" {
+  count    = length(local.public_subnets)
+  instance = aws_instance.frontend[count.index].id
+}
