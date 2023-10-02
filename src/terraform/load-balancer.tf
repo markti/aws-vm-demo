@@ -1,4 +1,4 @@
-
+/*
 resource "aws_lb" "frontend" {
   name                       = "${var.application_name}-${var.environment_name}"
   internal                   = false
@@ -44,6 +44,8 @@ resource "aws_lb_listener" "frontend" {
     target_group_arn = aws_lb_target_group.frontend[each.key].arn
   }
 }
+*/
+
 /*
 resource "aws_lb_target_group_attachment" "frontend" {
   foreach
