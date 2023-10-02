@@ -10,8 +10,13 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
+resource "random_shuffle" "az" {
+  input        = data.aws_availability_zones.available.names
+  result_count = 2
+}
+
 locals {
-  public_subnets = cidrsubnets("10.0.0.0/16", 8, 8, 8)
+  public_subnets = cidrsubnets("10.0.0.0/16", 8, 8)
 }
 
 resource "aws_subnet" "frontend" {
@@ -19,6 +24,6 @@ resource "aws_subnet" "frontend" {
   count = length(local.public_subnets)
 
   vpc_id            = aws_vpc.main.id
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = random_shuffle.az[count.index]
   cidr_block        = local.public_subnets[count.index]
 }
