@@ -12,11 +12,11 @@ data "aws_availability_zones" "available" {
 
 resource "random_shuffle" "az" {
   input        = data.aws_availability_zones.available.names
-  result_count = 2
+  result_count = 1
 }
 
 locals {
-  public_subnets = cidrsubnets("10.0.0.0/16", 8, 8)
+  public_subnets = cidrsubnets("10.0.0.0/16", 8)
 }
 
 resource "aws_subnet" "frontend" {
