@@ -30,7 +30,7 @@ resource "aws_instance" "frontend" {
 
   ami           = data.aws_ami.frontend.id
   instance_type = var.frontend_instance_type
-  key_name      = aws_key_pair.deployer.key_name
+  key_name      = aws_key_pair.frontend.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.frontend[count.index].id
