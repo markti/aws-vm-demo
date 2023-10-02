@@ -21,3 +21,12 @@ resource "aws_security_group_rule" "https" {
   cidr_blocks       = [aws_vpc.main.cidr_block]
   security_group_id = aws_security_group.frontend_lb.id
 }
+
+resource "aws_security_group_rule" "ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = [aws_vpc.main.cidr_block]
+  security_group_id = aws_security_group.frontend_lb.id
+}

@@ -23,9 +23,10 @@ resource "aws_network_interface" "frontend" {
 resource "aws_instance" "frontend" {
   count = length(local.public_subnets)
 
-  ami           = data.aws_ami.frontend.id
-  instance_type = var.frontend_instance_type
-  key_name      = aws_key_pair.frontend.key_name
+  ami                    = data.aws_ami.frontend.id
+  instance_type          = var.frontend_instance_type
+  key_name               = aws_key_pair.frontend.key_name
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   network_interface {
     network_interface_id = aws_network_interface.frontend[count.index].id
