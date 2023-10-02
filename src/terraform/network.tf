@@ -24,6 +24,6 @@ resource "aws_subnet" "frontend" {
   count = length(local.public_subnets)
 
   vpc_id            = aws_vpc.main.id
-  availability_zone = random_shuffle.az[count.index]
+  availability_zone = random_shuffle.az.result[count.index]
   cidr_block        = local.public_subnets[count.index]
 }
