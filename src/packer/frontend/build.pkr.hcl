@@ -26,10 +26,10 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-    "apt-get install unzip -y"
+      "apt-get install unzip -y"
     ]
   }
-  
+
 /*
   provisioner "shell" {
     execute_command = local.execute_command
