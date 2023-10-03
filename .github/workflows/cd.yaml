@@ -2,8 +2,8 @@ name: CD
 
 on:
   push:
-  pull_request:
-    branches: [ main ]
+    branches: 
+    - main
     paths:
     - '/src/terraform/**'
     - '.github/workflows/**'
