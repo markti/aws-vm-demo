@@ -5,7 +5,7 @@ build {
   ]
 
   provisioner "file" {
-    source = "./dotnet.pref"
+    source = "./files/dotnet.pref"
     destination = "/tmp/dotnet.pref"
   }
 
