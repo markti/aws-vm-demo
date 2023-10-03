@@ -4,6 +4,18 @@ build {
     "source.amazon-ebs.vm"
   ]
 
+  provisioner "file" {
+    source = "./dotnet.pref"
+    destination = "/tmp/dotnet.pref"
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/dotnet.pref /etc/apt/preferences.d/dotnet.pref"
+    ]
+  }
+
   # install dotnet
   provisioner "shell" {
     execute_command = local.execute_command
@@ -12,8 +24,7 @@ build {
       "apt-get clean", 
       "apt-get upgrade -y",
       "apt-get install unzip -y", 
-      "apt-get install dotnet-sdk-7.0 -y",
-      "apt-get install aspnetcore-runtime-7.0 -y"
+      "apt-get install dotnet-sdk-6.0 -y"
     ]
   }
 
