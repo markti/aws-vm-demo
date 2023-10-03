@@ -39,6 +39,15 @@ build {
     ]
   }
 
+  # grant user access to dotnet dir
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "chown -R myblazorapp-svc:myblazorapp-svc /var/www/.dotnet",
+      "chmod -R 755 /var/www/.dotnet"
+    ]
+  }
+
   # apt-install
   provisioner "shell" {
     execute_command = local.execute_command
