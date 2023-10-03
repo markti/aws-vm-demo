@@ -9,6 +9,10 @@ data "aws_ami" "frontend" {
   }
 }
 
+resource "aws_key_pair" "temp" {
+  key_name = "temp_key"
+}
+
 resource "aws_key_pair" "frontend" {
   key_name   = "frontend-key"
   public_key = trimspace(var.ssh_public_key)
@@ -31,7 +35,7 @@ resource "aws_instance" "frontend" {
 
   ami           = data.aws_ami.frontend.id
   instance_type = var.frontend_instance_type
-  key_name      = aws_key_pair.frontend.key_name
+  key_name      = aws_key_pair.temp.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.frontend[count.index].id
