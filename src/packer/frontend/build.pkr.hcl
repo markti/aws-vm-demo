@@ -24,7 +24,7 @@ build {
       "apt-get clean", 
       "apt-get upgrade -y",
       "apt-get install unzip -y", 
-      "apt-get install apt-transport-https liblttng-ust0 libcurl3 libkrb5-3 zlib1g -y"
+      "apt-get install apt-transport-https liblttng-ust0 libcurl3 libkrb5-3 zlib1g -y",
       "apt-get install dotnet-sdk-6.0 -y"
     ]
   }
