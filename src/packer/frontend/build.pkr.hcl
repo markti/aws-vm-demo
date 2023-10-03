@@ -4,6 +4,7 @@ build {
     "source.amazon-ebs.vm"
   ]
 
+  # install dotnet
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
