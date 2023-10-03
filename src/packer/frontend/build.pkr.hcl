@@ -12,8 +12,8 @@ build {
       "apt-get clean", 
       "apt-get upgrade -y",
       "apt-get install unzip -y", 
-      "apt-get install dotnet-sdk -y",
-      "apt-get install dotnet-host -y"
+      "apt-get install dotnet-sdk-7.0 -y",
+      "apt-get install aspnetcore-runtime-7.0 -y"
     ]
   }
 
