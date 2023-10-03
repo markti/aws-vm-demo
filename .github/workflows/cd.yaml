@@ -6,7 +6,6 @@ on:
     - main
     paths:
     - '/src/terraform/**'
-    - '.github/workflows/**'
 
 env:
   TERRAFORM_VERSION: '1.5.7'
