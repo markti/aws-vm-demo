@@ -6,6 +6,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 }
 
+# must allow IGW access to the internet
 resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
 
