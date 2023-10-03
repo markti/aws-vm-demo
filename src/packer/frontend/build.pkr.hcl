@@ -16,17 +16,26 @@ build {
     ]
   }
 
-  # install dotnet
+  # install dotnet pre-reqs
   provisioner "shell" {
     execute_command = local.execute_command
-    script = "./scripts/install-dotnet6.sh"
+    script = "./scripts/install-dotnet6-prereq.sh"
   }
-  
+
   # install dotnet6
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
       "apt-get install dotnet-sdk-6.0 -y"
+    ]
+  }
+
+  # setup svc user
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "adduser --system myblazorapp-svc",
+      "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp"
     ]
   }
 
@@ -37,19 +46,6 @@ build {
       "apt-get install unzip -y"
     ]
   }
-
-/*
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "apt-get update -y",
-      "apt-get clean", 
-      "apt-get upgrade -y",
-      "", 
-      "apt-get install apt-transport-https liblttng-ust0 libcurl3 libkrb5-3 zlib1g -y",
-      "apt-get install dotnet-sdk-6.0 -y"
-    ]
-  }*/
 
   provisioner "file" {
     source = "./deployment.zip"

@@ -7,7 +7,7 @@ ExecStart=/usr/bin/dotnet /var/www/myblazorapp/MyBlazorApp.dll
 Restart=always
 RestartSec=10  # Restart service after 10 seconds if the dotnet service crashes
 SyslogIdentifier=dotnet-example
-User=www-data
+User=myblazorapp-svc
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 
