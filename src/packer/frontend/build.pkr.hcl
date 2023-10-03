@@ -21,6 +21,15 @@ build {
     execute_command = local.execute_command
     script = "./scripts/install-dotnet6.sh"
   }
+
+  # apt-install
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+    "apt-get install unzip -y"
+    ]
+  }
+  
 /*
   provisioner "shell" {
     execute_command = local.execute_command
@@ -28,7 +37,7 @@ build {
       "apt-get update -y",
       "apt-get clean", 
       "apt-get upgrade -y",
-      "apt-get install unzip -y", 
+      "", 
       "apt-get install apt-transport-https liblttng-ust0 libcurl3 libkrb5-3 zlib1g -y",
       "apt-get install dotnet-sdk-6.0 -y"
     ]
