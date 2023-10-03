@@ -51,6 +51,7 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
+      "mkdir -p /var/www/myblazorapp",
       "unzip /tmp/deployment.zip -d /var/www/myblazorapp"
     ]
   }
