@@ -21,6 +21,14 @@ build {
     execute_command = local.execute_command
     script = "./scripts/install-dotnet6.sh"
   }
+  
+  # install dotnet6
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "apt-get install dotnet-sdk-6.0 -y"
+    ]
+  }
 
   # apt-install
   provisioner "shell" {
