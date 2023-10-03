@@ -5,7 +5,7 @@ on:
     branches: 
     - main
     paths:
-    - '/src/packer/frontend**'
+    - '/src/packer/frontend/**'
 
 env:
   DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
