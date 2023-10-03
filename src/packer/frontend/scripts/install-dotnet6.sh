@@ -11,4 +11,7 @@ dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 
 # Update packages
-apt update
+apt-get update -y
+
+# install .NET SDK 6.0
+apt-get install dotnet-sdk-6.0 -y
