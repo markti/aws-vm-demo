@@ -11,7 +11,7 @@ data "aws_ami" "frontend" {
 
 resource "aws_key_pair" "frontend" {
   key_name   = "frontend-key"
-  public_key = var.ssh_public_key
+  public_key = trimspace(var.ssh_public_key)
 }
 
 
