@@ -36,6 +36,7 @@ build {
     inline = [
       "groupadd myblazorapp-svc",
       "useradd -g myblazorapp-svc myblazorapp-svc",
+      "mkdir -p /var/www/myblazorapp",
       "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp"
     ]
   }
@@ -65,7 +66,6 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "mkdir -p /var/www/myblazorapp",
       "unzip /tmp/deployment.zip -d /var/www/myblazorapp"
     ]
   }
