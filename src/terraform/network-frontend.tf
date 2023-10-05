@@ -27,6 +27,6 @@ resource "aws_route_table_association" "frontend" {
   count = length(local.public_subnets)
 
   subnet_id      = aws_subnet.frontend[count.index].id
-  route_table_id = aws_route_table.main.id
+  route_table_id = aws_route_table.frontend.id
 
 }

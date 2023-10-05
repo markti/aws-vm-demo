@@ -21,6 +21,15 @@ resource "aws_route_table" "backend" {
   }
 }
 
+resource "aws_route_table_association" "backend" {
+
+  count = length(local.private_subnets)
+
+  subnet_id      = aws_subnet.backend[count.index].id
+  route_table_id = aws_route_table.backend.id
+
+}
+
 resource "aws_eip" "nat" {
   vpc = true
 }
