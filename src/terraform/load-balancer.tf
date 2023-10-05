@@ -2,7 +2,7 @@
 resource "aws_lb_target_group" "frontend_http" {
 
   name                          = "${var.application_name}-${var.environment_name}-frontend-http"
-  port                          = "5000"
+  port                          = 5000
   protocol                      = "HTTP"
   vpc_id                        = aws_vpc.main.id
   slow_start                    = 0
