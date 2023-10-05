@@ -48,11 +48,3 @@ resource "aws_instance" "frontend" {
   }
 
 }
-
-resource "aws_eip" "frontend" {
-
-  for_each = aws_instance.frontend
-
-  instance = each.value.id
-
-}
