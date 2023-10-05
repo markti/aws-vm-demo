@@ -34,7 +34,8 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "adduser --system myblazorapp-svc",
+      "groupadd myblazorapp-svc",
+      "adduser -g myblazorapp-svc myblazorapp-svc",
       "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp"
     ]
   }
