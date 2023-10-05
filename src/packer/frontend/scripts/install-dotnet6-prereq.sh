@@ -6,7 +6,6 @@ if command -v lsb_release &> /dev/null; then
 else
     repo_version=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 fi
-repo_version=$(echo $repo_version_raw | tr -d '\n' | tr -d '\r')
 
 echo "Repo Version: $repo_version"
 
