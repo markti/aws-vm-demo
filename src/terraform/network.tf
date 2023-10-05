@@ -16,6 +16,7 @@ resource "random_shuffle" "az" {
 }
 
 locals {
+  # subnet maps
   azs = random_shuffle.az.result
   public_subnets = { for k, v in local.azs :
     k => {
