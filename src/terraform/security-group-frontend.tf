@@ -1,6 +1,6 @@
 resource "aws_security_group" "frontend" {
   name        = "${var.application_name}-${var.environment_name}-frontend-sg"
-  description = "Security group for the frontend's EC2 instances"
+  description = "Security group for the frontend EC2 instances"
   vpc_id      = aws_vpc.main.id
 }
 
