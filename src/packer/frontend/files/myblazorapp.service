@@ -3,7 +3,7 @@ Description=My Blazor App
 
 [Service]
 WorkingDirectory=/var/www/myblazorapp
-ExecStart=/usr/bin/dotnet /var/www/myblazorapp/MyBlazorApp.dll
+ExecStart=/usr/bin/dotnet /var/www/myblazorapp/FleetPortal.dll
 Restart=always
 RestartSec=10  # Restart service after 10 seconds if the dotnet service crashes
 SyslogIdentifier=dotnet-example
