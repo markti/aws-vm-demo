@@ -1,7 +1,7 @@
 locals {
   private_subnets = cidrsubnets("10.0.2.0/24", 8)
 }
-
+/*
 resource "aws_subnet" "backend" {
 
   count = length(local.private_subnets)
@@ -50,3 +50,4 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.main]
 
 }
+*/
