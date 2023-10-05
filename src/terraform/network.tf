@@ -20,13 +20,13 @@ locals {
   public_subnets = { for k, v in local.azs :
     k => {
       cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k)
-      az_name    = random_shuffle.az[k]
+      az_name    = slice(data.aws_availability_zones.available.names, 0, 2)
     }
   }
   private_subnets = { for k, v in local.azs :
     k => {
       cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k + 2)
-      az_name    = random_shuffle.az[k]
+      az_name    = slice(data.aws_availability_zones.available.names, 0, 2)
     }
   }
 }
