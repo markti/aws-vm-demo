@@ -22,3 +22,6 @@ variable "ssh_public_key" {
 variable "vpc_cidr_block" {
   type = string
 }
+variable "az_count" {
+  type = number
+}

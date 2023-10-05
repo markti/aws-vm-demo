@@ -12,13 +12,13 @@ data "aws_availability_zones" "available" {
 
 resource "random_shuffle" "az" {
   input        = data.aws_availability_zones.available.names
-  result_count = 3
+  result_count = var.az_count
 }
 
 locals {
   # subnet maps...try target with shuffle...destroy
   azs_random = random_shuffle.az.result
-  azs_slice  = slice(data.aws_availability_zones.available.names, 0, 2)
+  azs_slice  = slice(data.aws_availability_zones.available.names, 0, var.az_count)
 
   public_subnets = { for k, v in local.azs_random :
     k => {
@@ -28,7 +28,7 @@ locals {
   }
   private_subnets = { for k, v in local.azs_random :
     k => {
-      cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, k + 3)
+      cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, k + var.az_count)
       availability_zone = v
     }
   }
