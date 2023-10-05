@@ -17,7 +17,7 @@ resource "aws_key_pair" "frontend" {
   key_name   = "frontend-key"
   public_key = trimspace(var.ssh_public_key)
 }
-/*
+
 resource "aws_network_interface" "frontend" {
 
   for_each = aws_subnet.frontend
@@ -31,7 +31,7 @@ resource "aws_network_interface_sg_attachment" "sg_attachment" {
 
   security_group_id    = aws_security_group.frontend_lb.id
   network_interface_id = each.value.primary_network_interface_id
-  
+
 }
 
 resource "aws_instance" "frontend" {
@@ -56,4 +56,3 @@ resource "aws_eip" "frontend" {
   instance = each.value.id
 
 }
-*/
