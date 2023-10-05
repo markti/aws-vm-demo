@@ -35,7 +35,6 @@ resource "aws_eip" "nat" {
 
   count = length(local.private_subnets)
 
-  vpc = true
 }
 
 resource "aws_nat_gateway" "nat" {
