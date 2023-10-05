@@ -1,5 +1,4 @@
 
-/*
 resource "aws_subnet" "backend" {
 
   for_each = local.private_subnets
@@ -47,5 +46,3 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.main]
 
 }
-
-*/
