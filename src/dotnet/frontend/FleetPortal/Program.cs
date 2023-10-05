@@ -27,6 +27,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+// Make sure we listen to any hostname
 app.Urls.Add("http://*:5000");
 
 app.Run();
