@@ -18,32 +18,40 @@ resource "aws_key_pair" "frontend" {
   public_key = trimspace(var.ssh_public_key)
 }
 
-
 resource "aws_network_interface" "frontend" {
-  count     = length(local.public_subnets)
-  subnet_id = aws_subnet.frontend[count.index].id
+
+  for_each = aws_instance.frontend
+
+  subnet_id = each.value.id
 }
 
 resource "aws_network_interface_sg_attachment" "sg_attachment" {
-  count                = length(local.public_subnets)
+
+  for_each = aws_network_interface.frontend
+
   security_group_id    = aws_security_group.frontend_lb.id
   network_interface_id = aws_instance.frontend[count.index].primary_network_interface_id
 }
 
 resource "aws_instance" "frontend" {
-  count = length(local.public_subnets)
+
+  for_each = aws_subnet.frontend
 
   ami           = data.aws_ami.frontend.id
   instance_type = var.frontend_instance_type
   key_name      = data.aws_key_pair.temp.key_name
 
   network_interface {
-    network_interface_id = aws_network_interface.frontend[count.index].id
+    network_interface_id = aws_network_interface.frontend[each.key].id
     device_index         = 0
   }
 
 }
+
 resource "aws_eip" "frontend" {
-  count    = length(local.public_subnets)
-  instance = aws_instance.frontend[count.index].id
+
+  for_each = aws_instance.frontend
+
+  instance = each.value.id
+
 }

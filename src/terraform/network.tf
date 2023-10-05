@@ -17,6 +17,6 @@ resource "random_shuffle" "az" {
 
 locals {
   azs             = random_shuffle.az.result
-  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr_block, 8, k)]
-  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr_block, 8, k + 2)]
+  public_subnets  = { for k, v in local.azs : k => cidrsubnet(var.vpc_cidr_block, 8, k) }
+  private_subnets = { for k, v in local.azs : k => cidrsubnet(var.vpc_cidr_block, 8, k + 2) }
 }
