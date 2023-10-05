@@ -40,7 +40,7 @@ resource "aws_lb" "frontend" {
   name               = "${var.application_name}-${var.environment_name}"
   internal           = false
   load_balancer_type = "application"
-  subnets            = aws_subnet.frontend.*.id
+  subnets            = [for subnet in values(aws_subnet.frontend) : subnet.id]
   security_groups    = [aws_security_group.frontend_lb.id]
 }
 
