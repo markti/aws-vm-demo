@@ -4,11 +4,10 @@ resource "aws_subnet" "frontend" {
   for_each = local.public_subnets
 
   vpc_id            = aws_vpc.main.id
-  availability_zone = random_shuffle.az.result[each.key]
-  cidr_block        = each.value
+  availability_zone = each.value.az_name
+  cidr_block        = each.value.cidr_block
 
 }
-
 
 # must allow IGW access to the internet
 resource "aws_route_table" "frontend" {
