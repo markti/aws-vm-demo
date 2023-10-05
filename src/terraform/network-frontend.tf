@@ -12,6 +12,15 @@ resource "aws_subnet" "frontend" {
 
 }
 
+# must allow IGW access to the internet
+resource "aws_route_table" "frontend" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+}
 
 resource "aws_route_table_association" "frontend" {
 
