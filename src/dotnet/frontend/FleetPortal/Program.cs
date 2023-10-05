@@ -27,5 +27,6 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.Urls.Add("http://*:5000");
 
 app.Run();
