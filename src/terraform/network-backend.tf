@@ -1,5 +1,5 @@
 locals {
-  private_subnets = cidrsubnets(local.public_subnets[0], 8)
+  private_subnets = cidrsubnets("10.0.2.0/24", 4)
 }
 
 resource "aws_subnet" "backend" {
@@ -9,5 +9,20 @@ resource "aws_subnet" "backend" {
   vpc_id            = aws_vpc.main.id
   availability_zone = random_shuffle.az.result[count.index]
   cidr_block        = local.private_subnets[count.index]
+
+}
+
+resource "aws_eip" "nat" {
+  vpc = true
+}
+
+resource "aws_nat_gateway" "nat" {
+
+  count = length(local.private_subnets)
+
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.backend[count.index].id
+
+  depends_on = [aws_internet_gateway.main]
 
 }
