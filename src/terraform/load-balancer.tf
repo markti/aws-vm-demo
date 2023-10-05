@@ -1,6 +1,6 @@
 resource "aws_lb_target_group" "frontend_http" {
 
-  name                          = "${var.application_name}-${var.environment_name}-frontend-${each.key}"
+  name                          = "${var.application_name}-${var.environment_name}-frontend-http"
   port                          = "5000"
   protocol                      = "HTTP"
   vpc_id                        = aws_vpc.main.id
@@ -29,7 +29,7 @@ resource "aws_lb_target_group_attachment" "frontend_http" {
 
   for_each = aws_instance.frontend
 
-  target_group_arn = aws_lb_target_group.frontend.arn
+  target_group_arn = aws_lb_target_group.frontend_http.arn
   target_id        = each.value.id
   port             = 5000
 
