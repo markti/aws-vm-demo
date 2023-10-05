@@ -1,5 +1,5 @@
 locals {
-  public_subnets = cidrsubnets("10.0.1.0/24", 4)
+  public_subnets = cidrsubnets("10.0.1.0/24", 8)
 }
 
 resource "aws_subnet" "frontend" {
