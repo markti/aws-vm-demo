@@ -16,7 +16,7 @@ resource "random_shuffle" "az" {
 }
 
 locals {
-  # subnet maps...try target
+  # subnet maps...try target with shuffle
   azs_random = random_shuffle.az.result
   azs_slice  = slice(data.aws_availability_zones.available.names, 0, 2)
 
