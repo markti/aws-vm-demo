@@ -1,4 +1,4 @@
-/*
+
 resource "aws_lb_target_group" "frontend_http" {
 
   name                          = "${var.application_name}-${var.environment_name}-frontend-http"
@@ -28,10 +28,10 @@ resource "aws_lb_target_group" "frontend_http" {
 
 resource "aws_lb_target_group_attachment" "frontend_http" {
 
-  count = length(local.public_subnets)
+  for_each = aws_instance.frontend
 
   target_group_arn = aws_lb_target_group.frontend_http.arn
-  target_id        = aws_instance.frontend[count.index].id
+  target_id        = each.value.id
   port             = 5000
 
 }
@@ -55,4 +55,3 @@ resource "aws_lb_listener" "frontend_http" {
     target_group_arn = aws_lb_target_group.frontend_http.arn
   }
 }
-*/
