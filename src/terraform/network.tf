@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-  cidr_block = var.vpc_address_space
+  cidr_block = var.vpc_cidr_block
 }
 
 resource "aws_internet_gateway" "main" {
@@ -16,7 +16,7 @@ resource "random_shuffle" "az" {
 }
 
 locals {
-  azs             = slice(data.aws_availability_zones.available.names, 0, 2)
-  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 8, k)]
-  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 8, k + 2)]
+  azs             = random_shuffle.az.result
+  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr_block, 8, k)]
+  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr_block, 8, k + 2)]
 }

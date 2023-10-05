@@ -9,6 +9,7 @@ resource "aws_subnet" "frontend" {
 
 }
 
+/*
 # must allow IGW access to the internet
 resource "aws_route_table" "frontend" {
   vpc_id = aws_vpc.main.id
@@ -27,3 +28,4 @@ resource "aws_route_table_association" "frontend" {
   route_table_id = aws_route_table.frontend.id
 
 }
+*/

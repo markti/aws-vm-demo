@@ -9,7 +9,7 @@ resource "aws_subnet" "backend" {
   cidr_block        = local.private_subnets[count.index]
 
 }
-
+/*
 resource "aws_route_table" "backend" {
 
   count = length(local.private_subnets)
@@ -48,3 +48,4 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.main]
 
 }
+*/

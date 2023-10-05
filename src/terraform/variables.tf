@@ -19,6 +19,6 @@ variable "domain_name" {
 variable "ssh_public_key" {
   type = string
 }
-variable "vpc_address_space" {
+variable "vpc_cidr_block" {
   type = string
 }
