@@ -18,7 +18,7 @@ resource "aws_key_pair" "frontend" {
   public_key = trimspace(var.ssh_public_key)
 }
 
-/*
+
 resource "aws_network_interface" "frontend" {
   count     = length(local.public_subnets)
   subnet_id = aws_subnet.frontend[count.index].id
@@ -47,4 +47,3 @@ resource "aws_eip" "frontend" {
   count    = length(local.public_subnets)
   instance = aws_instance.frontend[count.index].id
 }
-*/
