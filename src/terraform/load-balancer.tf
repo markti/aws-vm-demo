@@ -27,10 +27,10 @@ resource "aws_lb_target_group" "frontend_http" {
 
 resource "aws_lb_target_group_attachment" "frontend_http" {
 
-  for_each = aws_instance.frontend
+  count = length(local.public_subnets)
 
   target_group_arn = aws_lb_target_group.frontend_http.arn
-  target_id        = each.value.id
+  target_id        = aws_instance.frontend[count.index].id
   port             = 5000
 
 }
