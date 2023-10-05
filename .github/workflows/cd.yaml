@@ -39,4 +39,5 @@ jobs:
           -backend-config='region='$BACKEND_REGION \
           -backend-config="key=aws-vm-sample"
 
+        terraform apply -target "local.public_subnets"
         terraform apply -auto-approve
