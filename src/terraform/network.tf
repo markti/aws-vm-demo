@@ -17,6 +17,6 @@ resource "random_shuffle" "az" {
 
 locals {
   azs             = slice(data.aws_availability_zones.available.names, 0, 2)
-  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 6, k)]
-  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 6, k + 2)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 8, k)]
+  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_address_space, 8, k + 2)]
 }
