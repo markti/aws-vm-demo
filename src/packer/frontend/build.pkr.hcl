@@ -39,7 +39,6 @@ build {
     ]
   }
 
-  # wut
   # grant user access to dotnet dir
   provisioner "shell" {
     execute_command = local.execute_command
