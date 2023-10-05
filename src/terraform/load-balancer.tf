@@ -1,3 +1,4 @@
+/*
 resource "aws_lb_target_group" "frontend_http" {
 
   name                          = "${var.application_name}-${var.environment_name}-frontend-http"
@@ -54,3 +55,4 @@ resource "aws_lb_listener" "frontend_http" {
     target_group_arn = aws_lb_target_group.frontend_http.arn
   }
 }
+*/

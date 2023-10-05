@@ -1,4 +1,4 @@
-
+/*
 resource "aws_subnet" "frontend" {
 
   for_each = local.public_subnets
@@ -27,3 +27,4 @@ resource "aws_route_table_association" "frontend" {
   route_table_id = aws_route_table.frontend.id
 
 }
+*/
