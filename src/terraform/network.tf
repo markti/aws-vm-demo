@@ -28,7 +28,7 @@ locals {
   }
   private_subnets = { for k, v in local.azs_random :
     k => {
-      cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, k + 2)
+      cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, k + 3)
       availability_zone = v
     }
   }
