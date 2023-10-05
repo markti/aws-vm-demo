@@ -17,17 +17,19 @@ resource "random_shuffle" "az" {
 
 locals {
   # subnet maps
-  azs = random_shuffle.az.result
-  public_subnets = { for k, v in local.azs :
+  azs_random = random_shuffle.az.result
+  azs_slice  = slice(data.aws_availability_zones.available.names, 0, 2)
+
+  public_subnets = { for k, v in local.azs_random :
     k => {
       cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k)
-      az_name    = slice(data.aws_availability_zones.available.names, 0, 2)
+      az_name    = v
     }
   }
-  private_subnets = { for k, v in local.azs :
+  private_subnets = { for k, v in local.azs_random :
     k => {
       cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k + 2)
-      az_name    = slice(data.aws_availability_zones.available.names, 0, 2)
+      az_name    = v
     }
   }
 }
