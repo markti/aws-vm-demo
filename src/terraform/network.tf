@@ -16,7 +16,17 @@ resource "random_shuffle" "az" {
 }
 
 locals {
-  azs             = random_shuffle.az.result
-  public_subnets  = { for k, v in local.azs : k => cidrsubnet(var.vpc_cidr_block, 8, k) }
-  private_subnets = { for k, v in local.azs : k => cidrsubnet(var.vpc_cidr_block, 8, k + 2) }
+  azs = random_shuffle.az.result
+  public_subnets = { for k, v in local.azs :
+    k => {
+      cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k)
+      az_name    = random_shuffle.az[k]
+    }
+  }
+  private_subnets = { for k, v in local.azs :
+    k => {
+      cidr_block = cidrsubnet(var.vpc_cidr_block, 8, k + 2)
+      az_name    = random_shuffle.az[k]
+    }
+  }
 }
