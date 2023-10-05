@@ -5,7 +5,7 @@ resource "aws_security_group" "frontend" {
 }
 
 # Allow traffic from the Frontend ALB into the Frontend EC2 Instances
-resource "aws_security_group_rule" "http" {
+resource "aws_security_group_rule" "frontend_http" {
   type                     = "ingress"
   from_port                = 5000
   to_port                  = 5000
@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "http" {
 }
 
 # Allow SSH Access to Frontend EC2 Instances
-resource "aws_security_group_rule" "ssh" {
+resource "aws_security_group_rule" "frontend_ssh" {
   type              = "ingress"
   from_port         = 22
   to_port           = 22
