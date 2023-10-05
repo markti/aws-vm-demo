@@ -1,11 +1,7 @@
 #!/bin/bash
 
 # Get Ubuntu version
-if command -v lsb_release &> /dev/null; then
-    repo_version=$(lsb_release -r -s)
-else
-    repo_version=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
-fi
+repo_version="22.04"
 
 echo "Repo Version: $repo_version"
 
