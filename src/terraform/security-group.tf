@@ -9,7 +9,7 @@ resource "aws_security_group_rule" "http" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks       = [aws_vpc.main.cidr_block]
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.frontend_lb.id
 }
 
