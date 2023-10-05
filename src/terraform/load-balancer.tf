@@ -1,55 +1,56 @@
-/*
-resource "aws_lb" "frontend" {
-  name                       = "${var.application_name}-${var.environment_name}"
-  internal                   = false
-  load_balancer_type         = "application"
-  subnets                    = aws_subnet.frontend.*.id
-  enable_deletion_protection = false # You can set this to true if you want to enable deletion protection
-  security_groups            = [aws_security_group.frontend_lb.id]
-}
+resource "aws_lb_target_group" "frontend_http" {
 
-locals {
-  frontend_listeners = {
-    "HTTP" = 80
-    #"HTTPS" = 443
+  name                          = "${var.application_name}-${var.environment_name}-frontend-${each.key}"
+  port                          = "5000"
+  protocol                      = "HTTP"
+  vpc_id                        = aws_vpc.main.id
+  slow_start                    = 0
+  load_balancing_algorithm_type = "round_robin"
+
+  stickiness {
+    enabled = false
+    type    = "lb_cookie"
   }
-  frontend_attachments = [for k, v in local.frontend_listeners :
-    [for i in aws_instance.frontend : {
-      name        = k
-      port        = v
-      instance_id = i.id
-      }
-    ]
-  ]
+
+  health_check {
+    enabled             = true
+    port                = 5000
+    interval            = 30
+    protocol            = "HTTP"
+    path                = "/"
+    matcher             = 200
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
+
 }
 
-resource "aws_lb_target_group" "frontend" {
-  for_each = local.frontend_listeners
+resource "aws_lb_target_group_attachment" "frontend_http" {
 
-  name     = "${var.application_name}-${var.environment_name}-frontend-${each.key}"
-  port     = each.value
-  protocol = each.key
-  vpc_id   = aws_vpc.main.id
+  for_each = aws_instance.frontend
+
+  target_group_arn = aws_lb_target_group.frontend.arn
+  target_id        = each.value.id
+  port             = 5000
+
 }
 
-resource "aws_lb_listener" "frontend" {
-  for_each = local.frontend_listeners
+resource "aws_lb" "frontend" {
+  name               = "${var.application_name}-${var.environment_name}"
+  internal           = false
+  load_balancer_type = "application"
+  subnets            = aws_subnet.frontend.*.id
+  security_groups    = [aws_security_group.frontend_lb.id]
+}
+
+resource "aws_lb_listener" "frontend_http" {
 
   load_balancer_arn = aws_lb.frontend.arn
-  port              = each.value
-  protocol          = each.key
+  port              = "80"
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.frontend[each.key].arn
+    target_group_arn = aws_lb_target_group.frontend_http.arn
   }
 }
-*/
-
-/*
-resource "aws_lb_target_group_attachment" "frontend" {
-  foreach
-  target_group_arn = aws_lb_target_group.frontend.arn
-  target_id        = aws_instance.frontend[count.index].id
-}
-*/
