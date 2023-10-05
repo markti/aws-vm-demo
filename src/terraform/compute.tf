@@ -20,7 +20,7 @@ resource "aws_key_pair" "frontend" {
 
 resource "aws_network_interface" "frontend" {
 
-  for_each = aws_instance.frontend
+  for_each = aws_subnet.frontend
 
   subnet_id = each.value.id
 }
