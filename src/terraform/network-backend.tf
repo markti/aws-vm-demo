@@ -34,6 +34,9 @@ resource "aws_route_table_association" "backend" {
 }
 
 resource "aws_eip" "nat" {
+
+  count = length(local.private_subnets)
+
   vpc = true
 }
 
@@ -41,7 +44,7 @@ resource "aws_nat_gateway" "nat" {
 
   count = length(local.private_subnets)
 
-  allocation_id = aws_eip.nat.id
+  allocation_id = aws_eip.nat[count.index].id
   subnet_id     = aws_subnet.backend[count.index].id
 
   depends_on = [aws_internet_gateway.main]
