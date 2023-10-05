@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Get Ubuntu version
-repo_version=$(if command -v lsb_release &> /dev/null; then lsb_release -r -s; else grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"'; fi)
+repo_version_raw=$(if command -v lsb_release &> /dev/null; then lsb_release -r -s; else grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"'; fi)
+repo_version=$(echo $repo_version_raw | tr -d '\n' | tr -d '\r')
 
 # Download Microsoft signing key and repository
 wget https://packages.microsoft.com/config/ubuntu/$repo_version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
