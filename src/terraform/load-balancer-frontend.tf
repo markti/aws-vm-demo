@@ -42,6 +42,13 @@ resource "aws_lb" "frontend" {
   load_balancer_type = "application"
   subnets            = [for subnet in values(aws_subnet.frontend) : subnet.id]
   security_groups    = [aws_security_group.frontend_lb.id]
+
+  tags = {
+    Name        = "${var.application_name}-${var.environment_name}-frontend-lb"
+    application = var.application_name
+    environment = var.environment_name
+  }
+
 }
 
 resource "aws_lb_listener" "frontend_http" {
