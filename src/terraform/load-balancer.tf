@@ -10,7 +10,7 @@ resource "aws_lb_target_group" "frontend_http" {
 
   stickiness {
     enabled = true
-    type    = "source_ip"
+    type    = "ip"
   }
 
   health_check {
