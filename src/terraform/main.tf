@@ -9,7 +9,7 @@ resource "aws_resourcegroups_group" "main" {
   name = "${var.application_name}-${var.environment_name}"
 
   resource_query {
-    query = jsondecode(
+    query = jsonencode(
       {
         ResourceTypeFilters = [
           "AWS::EC2::Instance"
