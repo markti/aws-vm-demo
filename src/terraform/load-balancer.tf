@@ -9,8 +9,9 @@ resource "aws_lb_target_group" "frontend_http" {
   load_balancing_algorithm_type = "round_robin"
 
   stickiness {
-    enabled = false
-    type    = "lb_cookie"
+    enabled  = true
+    type     = "lb_cookie"
+    duration = 300
   }
 
   health_check {
