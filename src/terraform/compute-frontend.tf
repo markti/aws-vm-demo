@@ -70,7 +70,7 @@ data "cloudinit_config" "frontend" {
                    write_files:
                      - path: /etc/profile.d/backend_endpoint.sh
                        content: |
-                         export BackendEndpoint="YOUR_BACKEND_ENDPOINT_URL_HERE"
+                         export BackendEndpoint="${aws_lb.backend.dns_name}"
                    EOF
   }
 }
