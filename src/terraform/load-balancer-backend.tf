@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "backend_http" {
     port                = 5000
     interval            = 30
     protocol            = "HTTP"
-    path                = "/"
+    path                = "/health"
     matcher             = 200
     healthy_threshold   = 3
     unhealthy_threshold = 3
