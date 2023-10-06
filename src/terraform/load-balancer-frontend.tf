@@ -37,7 +37,7 @@ resource "aws_lb_target_group_attachment" "frontend_http" {
 }
 
 resource "aws_lb" "frontend" {
-  name               = "${var.application_name}-${var.environment_name}"
+  name               = "${var.application_name}-${var.environment_name}-frontend"
   internal           = false
   load_balancer_type = "application"
   subnets            = [for subnet in values(aws_subnet.frontend) : subnet.id]
