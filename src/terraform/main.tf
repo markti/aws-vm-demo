@@ -11,6 +11,8 @@ resource "aws_resourcegroups_group" "main" {
   resource_query {
     query = jsonencode(
       {
+        ResourceTypeFilters = [
+        ]
         TagFilters = [
           {
             Key    = "application"
