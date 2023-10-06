@@ -39,3 +39,11 @@ resource "aws_instance" "backend" {
   }
 
 }
+
+resource "aws_eip" "backend" {
+
+  for_each = aws_instance.backend
+
+  instance = each.value.id
+
+}
