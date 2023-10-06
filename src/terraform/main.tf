@@ -12,6 +12,7 @@ resource "aws_resourcegroups_group" "main" {
     query = jsonencode(
       {
         ResourceTypeFilters = [
+          "*"
         ]
         TagFilters = [
           {
