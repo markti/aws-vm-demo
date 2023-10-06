@@ -9,17 +9,22 @@ resource "aws_resourcegroups_group" "main" {
   name = "${var.application_name}-${var.environment_name}"
 
   resource_query {
-    query = jsondecode({
-
-      TagFilters = [
-        {
-          Key    = "application",
-          Values = [var.application_name]
-        },
-        {
-          Key    = "environment",
-          Values = [var.environment_name]
-        }
-    ] })
+    query = jsondecode(
+      {
+        ResourceTypeFilters = [
+          "AWS::EC2::Instance"
+        ]
+        TagFilters = [
+          {
+            Key    = "application"
+            Values = [var.application_name]
+          },
+          {
+            Key    = "environment"
+            Values = [var.environment_name]
+          }
+        ]
+      }
+    )
   }
 }
