@@ -39,7 +39,7 @@ resource "aws_instance" "backend" {
   }
 
   tags = {
-    Name        = "${var.application_name}-${var.environment_name}-backend"
+    Name        = "${var.application_name}-${var.environment_name}-backend-vm"
     application = var.application_name
     environment = var.environment_name
   }
