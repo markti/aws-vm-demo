@@ -38,4 +38,9 @@ resource "aws_instance" "backend" {
     device_index         = 0
   }
 
+  tags = {
+    application = var.application_name
+    environment = var.environment_name
+  }
+
 }

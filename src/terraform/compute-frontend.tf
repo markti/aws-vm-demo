@@ -43,6 +43,11 @@ resource "aws_instance" "frontend" {
     device_index         = 0
   }
 
+  tags = {
+    application = var.application_name
+    environment = var.environment_name
+  }
+
 }
 
 resource "aws_eip" "frontend" {
