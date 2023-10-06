@@ -1,4 +1,4 @@
-name: Backend-Packer
+name: Packer-Backend
 
 on:
   push:
