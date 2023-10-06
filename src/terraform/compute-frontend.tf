@@ -25,7 +25,7 @@ resource "aws_network_interface" "frontend" {
   subnet_id = each.value.id
 }
 
-resource "aws_network_interface_sg_attachment" "sg_attachment" {
+resource "aws_network_interface_sg_attachment" "frontend" {
 
   for_each = aws_instance.frontend
 
@@ -46,13 +46,5 @@ resource "aws_instance" "frontend" {
     network_interface_id = aws_network_interface.frontend[each.key].id
     device_index         = 0
   }
-
-}
-
-resource "aws_eip" "frontend" {
-
-  for_each = aws_instance.frontend
-
-  instance = each.value.id
 
 }
