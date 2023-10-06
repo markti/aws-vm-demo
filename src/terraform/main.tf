@@ -11,9 +11,6 @@ resource "aws_resourcegroups_group" "main" {
   resource_query {
     query = jsonencode(
       {
-        ResourceTypeFilters = [
-          "AWS::EC2::Instance"
-        ]
         TagFilters = [
           {
             Key    = "application"
