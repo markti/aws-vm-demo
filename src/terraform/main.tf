@@ -12,7 +12,7 @@ resource "aws_resourcegroups_group" "main" {
     query = jsonencode(
       {
         ResourceTypeFilters = [
-          "*"
+          "AWS::AllSupported"
         ]
         TagFilters = [
           {
