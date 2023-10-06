@@ -9,10 +9,6 @@ data "aws_ami" "backend" {
   }
 }
 
-data "aws_key_pair" "temp" {
-  key_name = "temp_key"
-}
-
 resource "aws_network_interface" "backend" {
 
   for_each = aws_subnet.backend
