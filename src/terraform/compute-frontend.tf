@@ -13,11 +13,6 @@ data "aws_key_pair" "temp" {
   key_name = "temp_key"
 }
 
-resource "aws_key_pair" "frontend" {
-  key_name   = "frontend-key"
-  public_key = trimspace(var.ssh_public_key)
-}
-
 resource "aws_network_interface" "frontend" {
 
   for_each = aws_subnet.frontend
