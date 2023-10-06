@@ -36,7 +36,7 @@ resource "aws_instance" "frontend" {
   ami           = data.aws_ami.frontend.id
   instance_type = var.frontend_instance_type
   key_name      = data.aws_key_pair.temp.key_name
-  user_data     = data.cloudinit_config.config.rendered
+  user_data     = data.cloudinit_config.frontend.rendered
 
   network_interface {
     network_interface_id = aws_network_interface.frontend[each.key].id
