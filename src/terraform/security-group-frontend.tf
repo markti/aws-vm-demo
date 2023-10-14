@@ -23,3 +23,13 @@ resource "aws_security_group_rule" "frontend_ssh" {
   security_group_id = aws_security_group.frontend.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+# allow traffic from the Frontend to flow into the Backend Load Balancer
+resource "aws_security_group_rule" "frontend_egress_http" {
+  type                     = "egress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.frontend.id
+  source_security_group_id = aws_security_group.backend_lb.id
+}
